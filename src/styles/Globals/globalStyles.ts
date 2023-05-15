@@ -21,9 +21,14 @@ const GlobalStyles = createGlobalStyle`
     -moz-appearance: none;
   }
 
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
   body {
     background: #edebe6;
-    height: 100vh;
   }
 
   /* Add more global styles as needed */

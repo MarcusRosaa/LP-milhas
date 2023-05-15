@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const Container = styled.div`
-  height: 14vh;
+  height: 15%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,4 +25,8 @@ export const Logo = styled.img`
   width: 100%;
   height: auto;
   object-fit: cover;
+
+  @media (min-width: 768px) {
+    padding-top: 12px;
+  }
 `;

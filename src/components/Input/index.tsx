@@ -1,4 +1,5 @@
 import { SetStateAction, useState } from "react";
+import { MdSend } from "react-icons/md";
 import Container from "./styles";
 
 const Input = () => {
@@ -13,7 +14,7 @@ const Input = () => {
   return (
     <Container>
       <input type="text" value={text} onChange={handleChange} />
-      <p>You entered: {text}</p>
+      <MdSend />
     </Container>
   );
 };

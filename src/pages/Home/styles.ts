@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 export const Container = styled.main`
   max-width: 980px;
-  height: 68vh;
+  height: 64%;
   margin: 0 auto;
   padding: 0 16px;
 
@@ -11,11 +11,12 @@ export const Container = styled.main`
   /* Customize the scrollbar */
   &::-webkit-scrollbar {
     width: 8px;
-    background-color: #edebe6;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #888;
+    background-color: #777;
     border-radius: 4px;
   }
 
@@ -30,9 +31,9 @@ export const Title = styled.h1`
   font-weight: 400;
   width: 100%;
   text-align: center;
-  height: 8vh;
+  height: 11%;
 
-  padding: 0 16px;
+  padding: 0 16px 32px;
 
   display: flex;
   align-items: center;
