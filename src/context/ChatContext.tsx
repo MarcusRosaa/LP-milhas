@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useContext, useState, useMemo } from "react";
-import { IUserResponse, IAppState, IChatContext } from "../types/types";
+import {
+  IUserResponse,
+  IAppState,
+  IChatContext,
+  IBotMessage,
+} from "../types/types";
 
 const ChatContext = createContext<IChatContext>({
   state: {
     questions: [],
     userResponses: [],
-    calculationResult: undefined,
     currentQuestionIndex: 0,
   },
   addResponse: () => {},
@@ -23,7 +27,6 @@ export const ChatProvider: React.FC<{
   const [state, setState] = useState<IAppState>({
     questions: initialQuestions,
     userResponses: [],
-    calculationResult: undefined,
     currentQuestionIndex: 0,
   });
 
@@ -35,20 +38,24 @@ export const ChatProvider: React.FC<{
   };
 
   const setCurrentQuestionIndex = (index: number) => {
-    setState((prevState) => ({
-      ...prevState,
-      currentQuestionIndex: index,
-    }));
+    if (index >= 0 && index < state.questions.length) {
+      setState((prevState) => ({
+        ...prevState,
+        currentQuestionIndex: index,
+      }));
+    }
   };
+
+  const currentQuestion = state.questions[state.currentQuestionIndex];
 
   const chatContextValue = useMemo(() => {
     return {
       state,
       addResponse,
       setCurrentQuestionIndex,
-      currentQuestion: null,
+      currentQuestion,
     };
-  }, [state, addResponse, setCurrentQuestionIndex]);
+  }, [state, addResponse, setCurrentQuestionIndex, currentQuestion]);
 
   return (
     <ChatContext.Provider value={chatContextValue}>

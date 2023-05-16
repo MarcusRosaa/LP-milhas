@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from "react";
 import { useChatContext } from "../../context/ChatContext";
 import BotMessage from "../../components/BotMessage";
@@ -28,7 +27,7 @@ const Home: React.FC = () => {
         />,
       ]);
     }
-  }, []); // Empty dependency array to run only once
+  }, [currentQuestion, state.questions, state.currentQuestionIndex]);
 
   useEffect(() => {
     if (state.userResponses.length > 0) {
@@ -48,7 +47,9 @@ const Home: React.FC = () => {
     <div className="chat-container">
       <div className="messages-container">
         {chatMessages.map((message, index) => (
-          <React.Fragment key={`message-${index}`}>{message}</React.Fragment>
+          <React.Fragment key={`message-${index}`}>
+            {message}
+          </React.Fragment>
         ))}
       </div>
       <div className="input-container">

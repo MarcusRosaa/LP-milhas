@@ -1,34 +1,28 @@
-export type Answer = string | number;
-
-export interface IUserResponse {
-  questionId: number;
-  answer?: Answer;
+// types.ts
+interface IUserResponse {
+  questionId: number | undefined;
+  answer: string | undefined;
 }
 
-export interface IQuestion {
+export interface IBotMessage {
   id: number;
-  text?: string;
+  text: string;
+  type: "auto" | "options" | "button" | "number";
   options?: string[];
-  type: string;
   buttonText?: string;
-  multiplier?: number;
 }
-
-export interface ICalculationResult {
-  value: number;
-  description: string;
-}
-
-export interface IAppState {
-  questions: IQuestion[];
+interface IAppState {
+  questions: IBotMessage[];
   userResponses: IUserResponse[];
-  calculationResult?: ICalculationResult;
+  calculationResult?: any; // Adjust the type according to your needs
   currentQuestionIndex: number;
 }
 
-export interface IChatContext {
+interface IChatContext {
   state: IAppState;
   addResponse: (response: IUserResponse) => void;
   setCurrentQuestionIndex: (index: number) => void;
-  currentQuestion: IQuestion | null; // Add currentQuestion property
+  currentQuestion: IBotMessage | null;
 }
+
+export { IUserResponse, IAppState, IChatContext, IBotMessage };

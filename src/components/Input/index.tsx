@@ -1,28 +1,31 @@
 import React, { useState } from "react";
-import { IUserResponse } from "../../types/types";
-import { useChatContext } from "../../context/ChatContext";
 
-const Input: React.FC = () => {
-  const { addResponse, currentQuestion } = useChatContext();
-  const [inputValue, setInputValue] = useState("");
+interface IInputProps {
+  onUserAnswer: (response: string) => void;
+  questionId: number;
+}
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+const Input: React.FC<IInputProps> = ({ onUserAnswer, questionId }) => {
+  const [value, setValue] = useState("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const userResponse: IUserResponse = {
-      questionId: currentQuestion?.id || 0,
-      answer: inputValue,
-    };
-    addResponse(userResponse);
-    setInputValue("");
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    onUserAnswer(value);
+    setValue("");
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <input type="text" value={inputValue} onChange={handleInputChange} />
+    <form className="input-form" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={value}
+        onChange={handleChange}
+        placeholder="Enter your answer..."
+      />
       <button type="submit">Submit</button>
     </form>
   );

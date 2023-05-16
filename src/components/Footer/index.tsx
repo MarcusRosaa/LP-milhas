@@ -1,8 +1,7 @@
 import React from "react";
-import Input from "../Input";
 
 const Footer: React.FC = () => {
-  return <Input />;
+  return <p>aaaa</p>;
 };
 
 export default Footer;
