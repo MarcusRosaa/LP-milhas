@@ -20,6 +20,7 @@ const Container = styled.div`
     box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
     color: #1e1e1e;
     margin-left: auto;
+    font-size: 14px;
   }
 `;
 

@@ -11,6 +11,10 @@ const Container = styled.div`
     max-width: 60%;
   }
 
+  strong {
+    font-weight: 600;
+  }
+
   p {
     width: fit-content;
     background-color: #fff;
@@ -18,6 +22,7 @@ const Container = styled.div`
     margin: 16px 0;
     box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
     color: #1e1e1e;
+    font-size: 14px;
   }
 `;
 
