@@ -4,6 +4,7 @@ import { useChatContext } from "../../context/ChatContext";
 import BotMessage from "../../components/BotMessage";
 import UserMessage from "../../components/UserMessage";
 import Input from "../../components/Input";
+import { Container } from "./styles";
 
 const Home: React.FC = () => {
   const { state, addResponse, setCurrentQuestionIndex, currentQuestion } =
@@ -16,6 +17,7 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log(`Current Question :: ${JSON.stringify(currentQuestion)}`);
     if (currentQuestion !== null) {
       setChatMessages((prevMessages) => [
         ...prevMessages,
@@ -28,7 +30,7 @@ const Home: React.FC = () => {
         />,
       ]);
     }
-  }, []); // Empty dependency array to run only once
+  }, [currentQuestion]);
 
   useEffect(() => {
     if (state.userResponses.length > 0) {
@@ -45,7 +47,7 @@ const Home: React.FC = () => {
   }, [state.userResponses]);
 
   return (
-    <div className="chat-container">
+    <Container className="chat-container">
       <div className="messages-container">
         {chatMessages.map((message, index) => (
           <React.Fragment key={`message-${index}`}>{message}</React.Fragment>
@@ -59,7 +61,7 @@ const Home: React.FC = () => {
           />
         )}
       </div>
-    </div>
+    </Container>
   );
 };
 

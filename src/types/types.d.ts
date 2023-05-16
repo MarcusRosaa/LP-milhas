@@ -7,7 +7,7 @@ interface IUserResponse {
 export interface IBotMessage {
   id: number;
   text: string;
-  type: "auto" | "options" | "button" | "number";
+  type: "auto" | "options" | "button" | "number" | string;
   options?: string[];
   buttonText?: string;
 }
@@ -22,7 +22,7 @@ interface IChatContext {
   state: IAppState;
   addResponse: (response: IUserResponse) => void;
   setCurrentQuestionIndex: (index: number) => void;
-  currentQuestion: IBotMessage | null;
+  currentQuestion: IBotMessage;
 }
 
 export { IUserResponse, IAppState, IChatContext, IBotMessage };

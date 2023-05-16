@@ -15,15 +15,22 @@ const ChatContext = createContext<IChatContext>({
   },
   addResponse: () => {},
   setCurrentQuestionIndex: () => {},
-  currentQuestion: null,
+  currentQuestion: {
+    id: 0,
+    text: "",
+    type: "",
+    options: [],
+    buttonText: "",
+  },
 });
 
 export const useChatContext = () => useContext(ChatContext);
 
 export const ChatProvider: React.FC<{
-  initialQuestions: any[];
+  initialQuestions: IBotMessage[];
   children: React.ReactNode;
 }> = ({ children, initialQuestions }) => {
+  console.log(initialQuestions);
   const [state, setState] = useState<IAppState>({
     questions: initialQuestions,
     userResponses: [],

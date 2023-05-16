@@ -1,67 +1,105 @@
 import React, { useState, useEffect } from "react";
-import { useChatContext } from "../../context/ChatContext";
-import BotMessage from "../../components/BotMessage";
-import UserMessage from "../../components/UserMessage";
-import Input from "../../components/Input";
+import { IBotMessage } from "../../types/types";
+import Container from "./styles";
 
-const Home: React.FC = () => {
-  const { state, addResponse, setCurrentQuestionIndex, currentQuestion } =
-    useChatContext();
-  const [chatMessages, setChatMessages] = useState<any[]>([]);
+interface IBotMessageProps {
+  message: IBotMessage | null;
+  nextQuestion: IBotMessage;
+  onUserAnswer: (response: string) => void;
+  isWaiting: boolean;
+}
 
-  const handleUserAnswer = (response: string) => {
-    addResponse({ questionId: currentQuestion?.id, answer: response });
-    setCurrentQuestionIndex(state.currentQuestionIndex + 1);
+const BotMessage: React.FC<IBotMessageProps> = ({
+  message,
+  nextQuestion,
+  onUserAnswer,
+  isWaiting,
+}) => {
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [currentMessage, setCurrentMessage] = useState<IBotMessage | null>(
+    message
+  );
+
+  const handleUserAnswer = () => {
+    if (selectedOption !== null) {
+      onUserAnswer(selectedOption);
+      setSelectedOption(null);
+    }
+
+    if (message?.type === "button") {
+      onUserAnswer("");
+    }
+  };
+
+  const handleOptionClick = (option: string) => {
+    setSelectedOption(option);
+    handleUserAnswer();
+  };
+
+  const renderOptions = () => {
+    return (
+      <div className="options-container">
+        {currentMessage?.options?.map((option) => (
+          <button
+            key={option}
+            onClick={() => handleOptionClick(option)}
+            disabled={isWaiting || selectedOption === option}
+            type="button"
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    );
   };
 
   useEffect(() => {
-    if (currentQuestion !== null) {
-      setChatMessages((prevMessages) => [
-        ...prevMessages,
-        <BotMessage
-          key={`bot-${currentQuestion.id}`}
-          message={currentQuestion}
-          nextQuestion={state.questions[state.currentQuestionIndex]}
-          onUserAnswer={handleUserAnswer}
-          isWaiting={state.currentQuestionIndex > state.userResponses.length}
-        />,
-      ]);
-    }
-  }, [currentQuestion, state.questions, state.currentQuestionIndex]);
+    setCurrentMessage(message);
+  }, [message]);
 
-  useEffect(() => {
-    if (state.userResponses.length > 0) {
-      const lastUserResponse =
-        state.userResponses[state.userResponses.length - 1];
-      setChatMessages((prevMessages) => [
-        ...prevMessages,
-        <UserMessage
-          key={`user-${lastUserResponse.questionId}`}
-          message={lastUserResponse.answer}
-        />,
-      ]);
+  const renderMessageContent = () => {
+    if (currentMessage === null) {
+      return null;
     }
-  }, [state.userResponses]);
+
+    switch (currentMessage?.type) {
+      case "auto":
+        return (
+          <Container className="message-content">
+            <p>{currentMessage.text}</p>
+          </Container>
+        );
+      case "button":
+        return (
+          <Container className="message-content">
+            <p>{currentMessage.text}</p>
+            <button onClick={handleUserAnswer} type="button">
+              {currentMessage.buttonText}
+            </button>
+          </Container>
+        );
+      case "options":
+        return (
+          <Container className="message-content">
+            <p>{currentMessage.text}</p>
+            {renderOptions()}
+          </Container>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
-    <div className="chat-container">
-      <div className="messages-container">
-        {chatMessages.map((message, index) => (
-          <React.Fragment key={`message-${index}`}>
-            {message}
-          </React.Fragment>
-        ))}
-      </div>
-      <div className="input-container">
-        {currentQuestion && (
-          <Input
-            onUserAnswer={handleUserAnswer}
-            questionId={currentQuestion.id}
-          />
-        )}
-      </div>
+    <div className="bot-message">
+      {renderMessageContent()}
+      {isWaiting && (
+        <Container className="waiting-message">
+          Waiting for your response...
+        </Container>
+      )}
     </div>
   );
 };
 
-export default Home;
+export default BotMessage;

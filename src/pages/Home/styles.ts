@@ -2,11 +2,15 @@ import { styled } from "styled-components";
 
 export const Container = styled.main`
   max-width: 980px;
-  height: 64%;
+  height: calc(85% - 28px);
   margin: 0 auto;
   padding: 0 16px;
-
+  border: 1px solid red;
   overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   /* Customize the scrollbar */
   &::-webkit-scrollbar {

@@ -8,9 +8,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (min-width: 980px) {
+  /* @media (min-width: 980px) {
     padding: 0 0 0 16px;
-  }
+  } */
 
   input {
     width: calc(100% - 60px);
