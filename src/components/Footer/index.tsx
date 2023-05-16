@@ -1,13 +1,8 @@
-import Container from "./styles";
+import React from "react";
+import Input from "../Input";
 
-import Input from "../../components/Input";
-
-const Footer = () => {
-  return (
-    <Container>
-      <Input />
-    </Container>
-  );
+const Footer: React.FC = () => {
+  return <Input />;
 };
 
 export default Footer;

@@ -1,39 +1,30 @@
-import { SetStateAction, useState } from "react";
-import { MdSend } from "react-icons/md";
-import Container from "./styles";
+import React, { useState } from "react";
+import { IUserResponse } from "../../types/types";
+import { useChatContext } from "../../context/ChatContext";
 
-const Input = () => {
-  const [text, setText] = useState(""); // Initialize state with an empty string
-  const [isFormValid, setIsFormValid] = useState(true);
+const Input: React.FC = () => {
+  const { addResponse, currentQuestion } = useChatContext();
+  const [inputValue, setInputValue] = useState("");
 
-  const handleChange = (event: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setText(event.target.value); // Update the state with the new input value
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
   };
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    if (text.trim() === "") {
-      setIsFormValid(false);
-      return;
-    }
-
-    setIsFormValid(true);
-    // Passar o valor para o componente Answer ou fazer qualquer outra ação necessária
-    console.log("Valor do input:", text);
-    setText("");
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const userResponse: IUserResponse = {
+      questionId: currentQuestion?.id || 0,
+      answer: inputValue,
+    };
+    addResponse(userResponse);
+    setInputValue("");
   };
 
   return (
-    <Container onSubmit={handleSubmit}>
-      <form onSubmit={handleSubmit} noValidate>
-        <input type="text" value={text} onChange={handleChange} />
-        <button type="submit">
-          <MdSend />
-        </button>
-      </form>
-    </Container>
+    <form onSubmit={handleFormSubmit}>
+      <input type="text" value={inputValue} onChange={handleInputChange} />
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 

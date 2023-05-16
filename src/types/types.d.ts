@@ -1,29 +1,34 @@
-// Tipos
-
 export type Answer = string | number;
 
-export type IUserResponse = {
+export interface IUserResponse {
   questionId: number;
-  answer: Answer;
-};
+  answer?: Answer;
+}
 
-export type IQuestion = {
+export interface IQuestion {
   id: number;
-  text: string;
+  text?: string;
   options?: string[];
   type: string;
   buttonText?: string;
   multiplier?: number;
-  onUserAnswer: (response: IUserResponse) => void;
-};
+}
 
-export type ICalculationResult = {
+export interface ICalculationResult {
   value: number;
   description: string;
-};
+}
 
-export type IAppState = {
-  questions: Question[];
-  userResponses: UserResponse[];
-  calculationResult?: CalculationResult;
-};
+export interface IAppState {
+  questions: IQuestion[];
+  userResponses: IUserResponse[];
+  calculationResult?: ICalculationResult;
+  currentQuestionIndex: number;
+}
+
+export interface IChatContext {
+  state: IAppState;
+  addResponse: (response: IUserResponse) => void;
+  setCurrentQuestionIndex: (index: number) => void;
+  currentQuestion: IQuestion | null; // Add currentQuestion property
+}
