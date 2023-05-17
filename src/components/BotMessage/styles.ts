@@ -45,10 +45,16 @@ const Container = styled.div`
       color: #fff;
       font-size: 12px;
       font-weight: 300;
+      box-shadow: 0 0 0 2px #f0f0f0, 0 0 4px 2px rgba(0, 0, 0, 0.3);
       cursor: pointer;
 
       &:active {
         outline: none;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
       }
 
       &:hover {
