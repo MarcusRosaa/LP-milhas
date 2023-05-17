@@ -23,6 +23,18 @@ const Container = styled.div`
     box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
     color: #1e1e1e;
     font-size: 14px;
+
+    display: grid;
+    grid-template-columns: 30px calc(100% - 30px);
+    align-items: center;
+
+    svg {
+      margin-right: 4px;
+      margin-bottom: 4px;
+      width: 24px;
+      height: 24px;
+      line-height: 0;
+    }
   }
 
   &.message-content--button,

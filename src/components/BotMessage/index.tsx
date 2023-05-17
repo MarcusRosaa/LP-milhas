@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { TbRobot } from "react-icons/tb";
 import { IBotMessage } from "../../types/types";
 import Container from "./styles";
 
@@ -77,13 +78,19 @@ const BotMessage: React.FC<IBotMessageProps> = ({
       case "auto":
         return (
           <Container className="message-content--auto">
-            <p>{displayText}</p>
+            <p>
+              <TbRobot />
+              {displayText}
+            </p>
           </Container>
         );
       case "button":
         return (
           <Container className="message-content--button">
-            <p>{displayText}</p>
+            <p>
+              <TbRobot />
+              {displayText}
+            </p>
             <button
               onClick={handleUserAnswer}
               disabled={!isWaiting}
@@ -96,14 +103,20 @@ const BotMessage: React.FC<IBotMessageProps> = ({
       case "options":
         return (
           <Container className="message-content--options">
-            <p>{displayText}</p>
+            <p>
+              <TbRobot />
+              {displayText}
+            </p>
             {renderOptions()}
           </Container>
         );
       default:
         return (
           <Container className="message-content--default">
-            <p>{displayText}</p>
+            <p>
+              <TbRobot />
+              {displayText}
+            </p>
           </Container>
         );
     }
