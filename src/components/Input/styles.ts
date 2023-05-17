@@ -26,6 +26,10 @@ const Container = styled.div`
       outline: none;
       border: 1px solid #999;
     }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   svg {

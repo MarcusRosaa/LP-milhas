@@ -76,14 +76,21 @@ const Home: React.FC = () => {
   return (
     <Container className="chat-container">
       <div className="messages-container">
-        {chatMessages.map((message, index) => (
-          <React.Fragment key={`message-${index}`}>{message}</React.Fragment>
-        ))}
+        <div className="messages-container-wrapper">
+          {chatMessages.map((message, index) => (
+            <React.Fragment key={`message-${index}`}>{message}</React.Fragment>
+          ))}
+        </div>
       </div>
       <div className="input-container">
         <Input
           onUserAnswer={handleUserAnswer}
           questionId={currentQuestion?.id}
+          isQuestionDisabled={
+            currentQuestion?.type === "button" ||
+            currentQuestion?.type === "options" ||
+            currentQuestion?.type === "auto"
+          }
         />
       </div>
     </Container>

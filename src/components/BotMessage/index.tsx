@@ -21,12 +21,14 @@ const BotMessage: React.FC<IBotMessageProps> = ({
     null
   );
 
+  const [buttonClicked, setButtonClicked] = useState(false);
+
   const handleUserAnswer = () => {
-    if (selectedOption !== null) {
-      onUserAnswer(selectedOption);
-      setSelectedOption(null);
-    } else if (currentMessage?.type === "button") {
-      onUserAnswer(currentMessage.buttonText || "");
+    if (!buttonClicked) {
+      setButtonClicked(true);
+      if (currentMessage?.type === "button") {
+        onUserAnswer(currentMessage.buttonText || "");
+      }
     }
   };
 
@@ -93,7 +95,7 @@ const BotMessage: React.FC<IBotMessageProps> = ({
             </p>
             <button
               onClick={handleUserAnswer}
-              disabled={!isWaiting}
+              disabled={!isWaiting || buttonClicked}
               type="button"
             >
               {currentMessage.buttonText}
