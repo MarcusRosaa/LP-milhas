@@ -4,28 +4,39 @@ export const Container = styled.main`
   max-width: 980px;
   height: calc(85% - 28px);
   margin: 0 auto;
-  padding: 0 16px;
-  border: 1px solid red;
-  overflow: auto;
+  padding: 0 16px 24px;
+
+  -webkit-box-shadow: 0px 1px 10px -3px rgba(178, 179, 189, 1);
+  -moz-box-shadow: 0px 1px 10px -3px rgba(178, 179, 189, 1);
+  box-shadow: 0px 1px 10px -3px rgba(178, 179, 189, 1);
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: end;
 
-  /* Customize the scrollbar */
-  &::-webkit-scrollbar {
-    width: 8px;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.1);
-  }
+  .messages-container {
+    /* Customize the scrollbar */
+    &::-webkit-scrollbar {
+      width: 8px;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: #777;
-    border-radius: 4px;
-  }
+    &::-webkit-scrollbar-thumb {
+      background-color: #777;
+      border-radius: 4px;
+    }
 
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
+    }
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
   }
 `;
 

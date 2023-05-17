@@ -31,6 +31,67 @@ const GlobalStyles = createGlobalStyle`
     background: #edebe6;
   }
 
+.bot-message {
+  animation: slideInFromLeft .6s ease-in-out;
+}
+
+.user-message {
+  animation: slideInFromRight 0.2s ease-in-out;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  25% {
+    opacity: 0;
+    transform: translateX(-75%);
+  }
+
+  50% {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+
+  75% {
+    opacity: 0;
+    transform: translateX(-25%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  25% {
+    opacity: 0;
+    transform: translateX(75%);
+  }
+
+  50% {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+
+  75% {
+    opacity: 0;
+    transform: translateX(25%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
   /* Add more global styles as needed */
 `;
 
