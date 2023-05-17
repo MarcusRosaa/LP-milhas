@@ -6,30 +6,100 @@ import UserMessage from "../../components/UserMessage";
 import Input from "../../components/Input";
 import { Container } from "./styles";
 
+interface QuestionResponse {
+  questionId: number;
+  answer: string;
+}
+
+interface SavedValues {
+  question6?: number;
+  question7?: number;
+  question8?: number;
+  question9?: number;
+  question10?: number;
+  question11?: number;
+  question12?: number;
+  question14?: number;
+  question15?: number;
+  total?: number;
+}
+
 const Home: React.FC = () => {
   const { state, addResponse, setCurrentQuestionIndex, currentQuestion } =
     useChatContext();
-  const [chatMessages, setChatMessages] = useState<any[]>([]);
+  const [chatMessages, setChatMessages] = useState<React.ReactNode[]>([]);
   const [isBotMessageEnabled, setBotMessageEnabled] = useState(false);
+  const [savedValues, setSavedValues] = useState<SavedValues>({});
 
   const handleUserAnswer = (response: string) => {
-    addResponse({ questionId: currentQuestion?.id, answer: response });
+    const currentQuestionId = currentQuestion?.id;
 
-    if (currentQuestion?.id === 10 && response === "Não") {
-      // Skip to question 13
-      const question13Index = state.questions.findIndex(
-        (question) => question.id === 13
-      );
-      setCurrentQuestionIndex(question13Index);
-    } else if (currentQuestion?.id === 13 && response === "Não") {
-      // Skip to question 15
-      const question15Index = state.questions.findIndex(
-        (question) => question.id === 15
-      );
-      setCurrentQuestionIndex(question15Index);
-    } else {
-      setCurrentQuestionIndex(state.currentQuestionIndex + 1);
+    addResponse({ questionId: currentQuestionId, answer: response });
+
+    // Perform calculations based on user responses
+    if (currentQuestionId === 6) {
+      const value = parseInt(response, 10) * 5;
+      setSavedValues({ ...savedValues, question6: value });
+    } else if (currentQuestionId === 7) {
+      const value = parseInt(response, 10) * 36;
+      setSavedValues({ ...savedValues, question7: value });
+    } else if (currentQuestionId === 8) {
+      const value = parseInt(response, 10) * 60;
+      setSavedValues({ ...savedValues, question8: value });
+    } else if (currentQuestionId === 9) {
+      const value = parseInt(response, 10) * 8;
+      setSavedValues({ ...savedValues, question9: value });
+    } else if (currentQuestionId === 10) {
+      if (response === "Sim") {
+        setCurrentQuestionIndex(state.currentQuestionIndex + 1);
+      } else if (response === "Não") {
+        setCurrentQuestionIndex(12);
+      }
+      return;
+    } else if (currentQuestionId === 11) {
+      const value = parseInt(response, 10) / 2;
+      setSavedValues({ ...savedValues, question11: value });
+    } else if (currentQuestionId === 12) {
+      let multiplier = 0;
+      if (response === "De 1-3 diárias") {
+        multiplier = 5000;
+      } else if (response === "De 3-7 diárias") {
+        multiplier = 10000;
+      } else if (response === "De 7-14 diárias") {
+        multiplier = 20000;
+      } else if (response === "De 14-28 diárias") {
+        multiplier = 40000;
+      }
+      const value = savedValues.question9! * multiplier;
+      setSavedValues({ ...savedValues, question12: value });
+    } else if (currentQuestionId === 13) {
+      if (response === "Sim") {
+        setCurrentQuestionIndex(state.currentQuestionIndex + 1);
+      } else if (response === "Não") {
+        setCurrentQuestionIndex(14);
+      }
+      return;
+    } else if (currentQuestionId === 14) {
+      const value = parseInt(response, 10) * 7;
+      setSavedValues({ ...savedValues, question14: value });
+    } else if (currentQuestionId === 15) {
+      const value = parseInt(response, 10) * 30;
+      setSavedValues({ ...savedValues, question15: value });
+    } else if (currentQuestionId === 20) {
+      const total =
+        savedValues &&
+        Object.values(savedValues).reduce((accumulator, currentValue) => {
+          const numericValue = parseFloat(currentValue!);
+          if (!Number.isNaN(numericValue)) {
+            return accumulator + numericValue;
+          }
+          return accumulator;
+        }, 0) * 2;
+
+      setSavedValues({ ...savedValues, total });
     }
+
+    setCurrentQuestionIndex(state.currentQuestionIndex + 1);
   };
 
   useEffect(() => {
