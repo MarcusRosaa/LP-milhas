@@ -6,13 +6,15 @@ export const Container = styled.main`
   margin: 0 auto;
   padding: 0 16px 24px;
 
-  -webkit-box-shadow: 0px 1px 10px -3px rgba(178, 179, 189, 1);
-  -moz-box-shadow: 0px 1px 10px -3px rgba(178, 179, 189, 1);
-  box-shadow: 0px 1px 10px -3px rgba(178, 179, 189, 1);
-
   display: flex;
   flex-direction: column;
   justify-content: end;
+
+  @media (min-width: 980px) {
+    -webkit-box-shadow: 0px 1px 10px -3px rgba(178, 179, 189, 1);
+    -moz-box-shadow: 0px 1px 10px -3px rgba(178, 179, 189, 1);
+    box-shadow: 0px 1px 10px -3px rgba(178, 179, 189, 1);
+  }
 
   .messages-container {
     /* Customize the scrollbar */
