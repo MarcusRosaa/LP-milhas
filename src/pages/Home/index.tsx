@@ -91,6 +91,7 @@ const Home: React.FC = () => {
             currentQuestion?.type === "options" ||
             currentQuestion?.type === "auto"
           }
+          currentQuestion={state.questions}
         />
       </div>
     </Container>
