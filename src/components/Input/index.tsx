@@ -66,15 +66,16 @@ const Input: React.FC<IInputProps> = ({
       setValue("");
     }
   };
-
   return (
     <Container>
       <form className="input-form" onSubmit={handleSubmit}>
         <input
-          type={currentQuestion[questionId].type === "phone" ? "tel" : "text"} // Set input type to "tel" for questionId  (phone)
+          type={
+            currentQuestion[questionId - 1].type === "phone" ? "tel" : "text"
+          } // Set input type to "tel" for questionId  (phone)
           value={value}
           onChange={handleChange}
-          placeholder="Enter your answer..."
+          placeholder="Escreva sua resposta..."
           disabled={isQuestionDisabled} // Disable input when in a question state
         />
         <button type="submit" disabled={isEmpty || isQuestionDisabled}>

@@ -147,7 +147,7 @@ const questionsData = [
     text: "O cálculo já está feito, quer saber o resultado?",
     type: "button",
     options: [],
-    buttonText: "Obvio, to aqui pra isso!",
+    buttonText: "Óbvio, tô aqui pra isso!",
   },
 ];
 

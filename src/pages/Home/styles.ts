@@ -17,6 +17,7 @@ export const Container = styled.main`
   }
 
   .messages-container {
+    padding-bottom: 16px;
     /* Customize the scrollbar */
     &::-webkit-scrollbar {
       width: 8px;

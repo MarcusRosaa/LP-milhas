@@ -14,11 +14,22 @@ const Home: React.FC = () => {
 
   const handleUserAnswer = (response: string) => {
     addResponse({ questionId: currentQuestion?.id, answer: response });
-    if (currentQuestion?.type === "auto") {
-      setBotMessageEnabled(true);
-    }
 
-    setCurrentQuestionIndex(state.currentQuestionIndex + 1);
+    if (currentQuestion?.id === 10 && response === "Não") {
+      // Skip to question 13
+      const question13Index = state.questions.findIndex(
+        (question) => question.id === 13
+      );
+      setCurrentQuestionIndex(question13Index);
+    } else if (currentQuestion?.id === 13 && response === "Não") {
+      // Skip to question 15
+      const question15Index = state.questions.findIndex(
+        (question) => question.id === 15
+      );
+      setCurrentQuestionIndex(question15Index);
+    } else {
+      setCurrentQuestionIndex(state.currentQuestionIndex + 1);
+    }
   };
 
   useEffect(() => {
@@ -48,26 +59,43 @@ const Home: React.FC = () => {
       const lastUserResponse =
         state.userResponses[state.userResponses.length - 1];
 
-      if (currentQuestion?.type !== "auto") {
-        setChatMessages((prevMessages) => [
-          ...prevMessages,
-          <UserMessage
-            key={`user-${lastUserResponse.questionId}`}
-            message={lastUserResponse.answer}
-          />,
-        ]);
-      }
+      setChatMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages];
 
-      setChatMessages((prevMessages) => [
-        ...prevMessages,
-        <BotMessage
-          key={`bot-${lastUserResponse.questionId}`}
-          message={null}
-          nextQuestion={state.questions[state.currentQuestionIndex]}
-          onUserAnswer={handleUserAnswer}
-          isWaiting={state.currentQuestionIndex >= state.userResponses.length}
-        />,
-      ]);
+        // Find the index of the last bot message in the chat messages
+        let lastBotMessageIndex = prevMessages.length - 1;
+        while (
+          lastBotMessageIndex >= 0 &&
+          !React.isValidElement(updatedMessages[lastBotMessageIndex])
+        ) {
+          lastBotMessageIndex -= 1;
+        }
+
+        if (lastBotMessageIndex >= 0) {
+          // Insert the user's response above the next bot message
+          updatedMessages.splice(
+            lastBotMessageIndex,
+            0,
+            <UserMessage
+              key={`user-${lastUserResponse.questionId}`}
+              message={lastUserResponse.answer}
+            />
+          );
+        }
+
+        // Add the new bot message
+        updatedMessages.push(
+          <BotMessage
+            key={`bot-${lastUserResponse.questionId}`}
+            message={null}
+            nextQuestion={state.questions[state.currentQuestionIndex]}
+            onUserAnswer={handleUserAnswer}
+            isWaiting={state.currentQuestionIndex >= state.userResponses.length}
+          />
+        );
+
+        return updatedMessages;
+      });
     }
   }, [state.userResponses]);
 
