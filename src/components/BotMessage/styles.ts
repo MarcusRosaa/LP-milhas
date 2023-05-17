@@ -24,6 +24,38 @@ const Container = styled.div`
     color: #1e1e1e;
     font-size: 14px;
   }
+
+  &.message-content--button,
+  &.message-content--options {
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      gap: 8px;
+    }
+
+    button {
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      background: #1e1e1e;
+      padding: 8px 12px;
+      outline: none;
+      border: none;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 300;
+      cursor: pointer;
+
+      &:active {
+        outline: none;
+      }
+
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+  }
 `;
 
 export default Container;
