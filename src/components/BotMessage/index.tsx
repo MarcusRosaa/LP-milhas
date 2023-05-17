@@ -26,8 +26,8 @@ const BotMessage: React.FC<IBotMessageProps> = ({
       setSelectedOption(null);
     }
 
-    if (message?.type === "button") {
-      onUserAnswer("");
+    if (currentMessage?.type === "button") {
+      onUserAnswer(currentMessage.buttonText || "");
     }
   };
 
@@ -57,43 +57,60 @@ const BotMessage: React.FC<IBotMessageProps> = ({
     setCurrentMessage(message);
   }, [message]);
 
+  useEffect(() => {
+    setCurrentMessage(message);
+  }, [message]);
+
+  useEffect(() => {
+    if (isWaiting) {
+      setCurrentMessage(nextQuestion);
+    }
+  }, [isWaiting, nextQuestion]);
+
   const renderMessageContent = () => {
     if (currentMessage === null) {
       return null;
     }
-
     switch (currentMessage?.type) {
       case "auto":
         return (
-          <Container className="message-content">
+          <Container className="message-content--auto">
             <p>{currentMessage.text}</p>
           </Container>
         );
       case "button":
         return (
-          <Container className="message-content">
+          <Container className="message-content--button">
             <p>{currentMessage.text}</p>
-            <button onClick={handleUserAnswer} type="button">
+            <button
+              onClick={handleUserAnswer}
+              disabled={isWaiting}
+              type="button"
+            >
               {currentMessage.buttonText}
             </button>
           </Container>
         );
       case "options":
         return (
-          <Container className="message-content">
+          <Container className="message-content--options">
             <p>{currentMessage.text}</p>
             {renderOptions()}
           </Container>
         );
       default:
-        return null;
+        return (
+          <Container className="message-content--default">
+            <p>{currentMessage.text}</p>
+          </Container>
+        );
     }
   };
 
   return (
     <div className="bot-message">
       {renderMessageContent()}
-      {isWaiting && (
+      {isWaiting && !currentMessage?.options && (
         <Container className="waiting-message">
           Waiting for your response...
         </Container>

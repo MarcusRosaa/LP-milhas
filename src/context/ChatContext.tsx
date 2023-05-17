@@ -30,20 +30,17 @@ export const ChatProvider: React.FC<{
   initialQuestions: IBotMessage[];
   children: React.ReactNode;
 }> = ({ children, initialQuestions }) => {
-  console.log(initialQuestions);
   const [state, setState] = useState<IAppState>({
     questions: initialQuestions,
     userResponses: [],
     currentQuestionIndex: 0,
   });
-
   const addResponse = (response: IUserResponse) => {
     setState((prevState) => ({
       ...prevState,
       userResponses: [...prevState.userResponses, response],
     }));
   };
-
   const setCurrentQuestionIndex = (index: number) => {
     if (index >= 0 && index < state.questions.length) {
       setState((prevState) => ({

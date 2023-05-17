@@ -32,7 +32,6 @@ const Container = styled.div`
     width: 60px;
     height: 45px;
     padding-left: 8px;
-    cursor: pointer;
   }
 
   form {
@@ -46,10 +45,16 @@ const Container = styled.div`
     border: none;
     background: none;
     outline: none;
+    cursor: pointer;
 
     &:active {
       outline: none;
       color: #333;
+    }
+
+    &:disabled {
+      color: #333;
+      cursor: not-allowed;
     }
   }
 `;
