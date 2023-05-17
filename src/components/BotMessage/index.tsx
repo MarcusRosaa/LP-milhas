@@ -81,10 +81,20 @@ const BotMessage: React.FC<IBotMessageProps> = ({
       case "auto":
         return (
           <Container className="message-content--auto">
-            <p>
-              <TbRobot />
-              {displayText}
-            </p>
+            {message?.id === 19 && (
+              <a href="www.instagram.com/matheustiburtino" target="_blank">
+                <p>
+                  <TbRobot />
+                  {displayText}
+                </p>
+              </a>
+            )}
+            {message?.id !== 19 && (
+              <p>
+                <TbRobot />
+                {displayText}
+              </p>
+            )}
           </Container>
         );
       case "button":

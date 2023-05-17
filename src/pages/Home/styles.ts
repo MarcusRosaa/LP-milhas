@@ -18,6 +18,13 @@ export const Container = styled.main`
 
   .messages-container {
     padding-bottom: 16px;
+    padding-right: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+
     /* Customize the scrollbar */
     &::-webkit-scrollbar {
       width: 8px;
@@ -34,12 +41,14 @@ export const Container = styled.main`
       background-color: #555;
     }
 
-    overflow-x: hidden;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: fit-content;
+      bottom: 0;
+      position: sticky;
+    }
   }
 `;
 

@@ -15,6 +15,13 @@ const Container = styled.div`
     font-weight: 600;
   }
 
+  a {
+    display: inline-block;
+    p {
+      color: #0b9ed2;
+    }
+  }
+
   p {
     width: fit-content;
     background-color: #fff;

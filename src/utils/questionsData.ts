@@ -137,7 +137,7 @@ const questionsData = [
   },
   {
     id: 19,
-    text: "@matheustiburtino (vou deixar o link no final)",
+    text: "@matheustiburtino",
     type: "auto",
     options: [],
     buttonText: "",
