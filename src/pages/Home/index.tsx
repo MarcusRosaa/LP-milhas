@@ -215,9 +215,6 @@ const Home: React.FC = () => {
     }
   }, [state.userResponses]);
 
-  console.log(JSON.stringify(state.userResponses, null, 2));
-  console.log(savedValues);
-
   return (
     <Container className="chat-container">
       <div className="messages-container">

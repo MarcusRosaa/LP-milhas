@@ -1,11 +1,18 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { createContext, useContext, useState, useMemo } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useMemo,
+  useEffect,
+} from "react";
 import {
   IUserResponse,
   IAppState,
   IChatContext,
   IBotMessage,
 } from "../types/types";
+import createDocument from "../firebase/userAnswers";
 
 const ChatContext = createContext<IChatContext>({
   state: {
@@ -60,6 +67,20 @@ export const ChatProvider: React.FC<{
       currentQuestion,
     };
   }, [state, addResponse, setCurrentQuestionIndex, currentQuestion]);
+
+  useEffect(() => {
+    if (state.userResponses.length === 3) {
+      try {
+        const leadNome = state.userResponses[0].answer;
+        const leadNumero = state.userResponses[1].answer;
+        const leadAcumulaMilhas = state.userResponses[2].answer;
+        createDocument(leadNome, leadNumero, leadAcumulaMilhas);
+        console.log("cuzao");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [state]);
 
   return (
     <ChatContext.Provider value={chatContextValue}>
