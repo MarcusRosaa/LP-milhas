@@ -14,7 +14,6 @@ const Home: React.FC = () => {
 
   const handleUserAnswer = (response: string) => {
     addResponse({ questionId: currentQuestion?.id, answer: response });
-
     if (currentQuestion?.type === "auto") {
       setBotMessageEnabled(true);
     }
@@ -23,7 +22,7 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    if (state.questions !== null) {
+    if (state.questions !== null && currentQuestion) {
       const newMessages = [
         ...chatMessages,
         <BotMessage
@@ -42,14 +41,14 @@ const Home: React.FC = () => {
 
       setChatMessages(newMessages);
     }
-  }, [currentQuestion, state.currentQuestionIndex]);
+  }, [state.questions, currentQuestion, state.currentQuestionIndex]);
 
   useEffect(() => {
     if (state.userResponses.length > 0) {
       const lastUserResponse =
         state.userResponses[state.userResponses.length - 1];
 
-      if (currentQuestion.type !== "auto") {
+      if (currentQuestion?.type !== "auto") {
         setChatMessages((prevMessages) => [
           ...prevMessages,
           <UserMessage
@@ -72,7 +71,8 @@ const Home: React.FC = () => {
     }
   }, [state.userResponses]);
 
-  console.log(JSON.stringify(state.userResponses));
+  console.log(JSON.stringify(state.userResponses, null, 2));
+
   return (
     <Container className="chat-container">
       <div className="messages-container">
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
       <div className="input-container">
         <Input
           onUserAnswer={handleUserAnswer}
-          questionId={currentQuestion.id}
+          questionId={currentQuestion?.id}
         />
       </div>
     </Container>

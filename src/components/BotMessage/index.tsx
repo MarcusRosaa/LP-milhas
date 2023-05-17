@@ -17,23 +17,21 @@ const BotMessage: React.FC<IBotMessageProps> = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [currentMessage, setCurrentMessage] = useState<IBotMessage | null>(
-    message
+    null
   );
 
   const handleUserAnswer = () => {
     if (selectedOption !== null) {
       onUserAnswer(selectedOption);
       setSelectedOption(null);
-    }
-
-    if (currentMessage?.type === "button") {
+    } else if (currentMessage?.type === "button") {
       onUserAnswer(currentMessage.buttonText || "");
     }
   };
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
-    handleUserAnswer();
+    onUserAnswer(option);
   };
 
   const renderOptions = () => {
@@ -43,7 +41,7 @@ const BotMessage: React.FC<IBotMessageProps> = ({
           <button
             key={option}
             onClick={() => handleOptionClick(option)}
-            disabled={isWaiting || selectedOption === option}
+            disabled={selectedOption !== null}
             type="button"
           >
             {option}
@@ -54,37 +52,41 @@ const BotMessage: React.FC<IBotMessageProps> = ({
   };
 
   useEffect(() => {
-    setCurrentMessage(message);
-  }, [message]);
-
-  useEffect(() => {
-    setCurrentMessage(message);
-  }, [message]);
-
-  useEffect(() => {
     if (isWaiting) {
       setCurrentMessage(nextQuestion);
+      setSelectedOption(null);
     }
   }, [isWaiting, nextQuestion]);
+
+  useEffect(() => {
+    setCurrentMessage(message);
+    setSelectedOption(null);
+  }, [message]);
 
   const renderMessageContent = () => {
     if (currentMessage === null) {
       return null;
     }
+
+    const displayText =
+      currentMessage.type === "options" && selectedOption
+        ? currentMessage.text.replace("{option}", selectedOption)
+        : currentMessage.text;
+
     switch (currentMessage?.type) {
       case "auto":
         return (
           <Container className="message-content--auto">
-            <p>{currentMessage.text}</p>
+            <p>{displayText}</p>
           </Container>
         );
       case "button":
         return (
           <Container className="message-content--button">
-            <p>{currentMessage.text}</p>
+            <p>{displayText}</p>
             <button
               onClick={handleUserAnswer}
-              disabled={isWaiting}
+              disabled={!isWaiting}
               type="button"
             >
               {currentMessage.buttonText}
@@ -94,29 +96,20 @@ const BotMessage: React.FC<IBotMessageProps> = ({
       case "options":
         return (
           <Container className="message-content--options">
-            <p>{currentMessage.text}</p>
+            <p>{displayText}</p>
             {renderOptions()}
           </Container>
         );
       default:
         return (
           <Container className="message-content--default">
-            <p>{currentMessage.text}</p>
+            <p>{displayText}</p>
           </Container>
         );
     }
   };
 
-  return (
-    <div className="bot-message">
-      {renderMessageContent()}
-      {isWaiting && !currentMessage?.options && (
-        <Container className="waiting-message">
-          Waiting for your response...
-        </Container>
-      )}
-    </div>
-  );
+  return <div className="bot-message">{renderMessageContent()}</div>;
 };
 
 export default BotMessage;
