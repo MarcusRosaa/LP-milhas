@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from "react";
 import { TbRobot } from "react-icons/tb";
 import { IBotMessage } from "../../types/types";
@@ -5,9 +6,9 @@ import Container from "./styles";
 
 interface IBotMessageProps {
   message: IBotMessage | null;
-  nextQuestion: IBotMessage;
-  onUserAnswer: (response: string) => void;
-  isWaiting: boolean;
+  nextQuestion?: IBotMessage;
+  onUserAnswer?: (response: string) => void;
+  isWaiting?: boolean;
 }
 
 const BotMessage: React.FC<IBotMessageProps> = ({
@@ -26,7 +27,7 @@ const BotMessage: React.FC<IBotMessageProps> = ({
   const handleUserAnswer = () => {
     if (!buttonClicked) {
       setButtonClicked(true);
-      if (currentMessage?.type === "button") {
+      if (currentMessage?.type === "button" && onUserAnswer) {
         onUserAnswer(currentMessage.buttonText || "");
       }
     }
@@ -34,7 +35,7 @@ const BotMessage: React.FC<IBotMessageProps> = ({
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
-    onUserAnswer(option);
+    if (onUserAnswer) onUserAnswer(option);
   };
 
   const renderOptions = () => {
@@ -56,7 +57,7 @@ const BotMessage: React.FC<IBotMessageProps> = ({
 
   useEffect(() => {
     if (isWaiting) {
-      setCurrentMessage(nextQuestion);
+      if (nextQuestion) setCurrentMessage(nextQuestion);
       setSelectedOption(null);
     }
   }, [isWaiting, nextQuestion]);

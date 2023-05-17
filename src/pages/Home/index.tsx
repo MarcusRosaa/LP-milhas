@@ -97,6 +97,52 @@ const Home: React.FC = () => {
         }, 0) * 2;
 
       setSavedValues({ ...savedValues, total });
+
+      setChatMessages((prevMessages) => [
+        ...prevMessages,
+        <BotMessage
+          key="message-1"
+          message={{
+            id: 1,
+            type: "default",
+            text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${total.toFixed()} milhas.`,
+          }}
+        />,
+        <BotMessage
+          key="message-2"
+          message={{
+            id: 2,
+            type: "default",
+            text: `Isso representa: VIAGEM INTERNACIONAIS = ${(
+              total / 80000
+            ).toFixed()}, VIAGENS NACIONAIS = ${(
+              total / 20000
+            ).toFixed()}, ou DINHEIRO NO BOLSO = ${(
+              (total / 1000) *
+              20
+            ).toFixed()}`,
+          }}
+        />,
+        <BotMessage
+          key="message-3"
+          message={{
+            id: 3,
+            type: "default",
+            text: "Gostou do resultado? Deixa um feedback lá no meu Instagram!",
+          }}
+        />,
+        <BotMessage
+          key="message-4"
+          message={{
+            id: 4,
+            type: "default",
+            text: "BOTAO: LINK PARA INSTAGRAM",
+          }}
+        />,
+      ]);
+
+      setCurrentQuestionIndex(state.currentQuestionIndex + 1);
+      return;
     }
 
     setCurrentQuestionIndex(state.currentQuestionIndex + 1);
@@ -170,6 +216,7 @@ const Home: React.FC = () => {
   }, [state.userResponses]);
 
   console.log(JSON.stringify(state.userResponses, null, 2));
+  console.log(savedValues);
 
   return (
     <Container className="chat-container">

@@ -123,7 +123,7 @@ const questionsData = [
   },
   {
     id: 17,
-    text: "Estamos fazendo o cálculo da quantidade de milhas que você pode acumular no ano, mas lembrando que isso é apenas uma projeção, e considerando somente o seu acumulo PASSIVO! Ou seja, sem ter que gastar nada a mais por isso…",
+    text: "Estou fazendo o cálculo da quantidade de milhas que você pode acumular no ano, mas lembrando que isso é apenas uma projeção, e considerando somente o seu acumulo PASSIVO! Ou seja, sem ter que gastar nada a mais por isso…",
     type: "auto",
     options: [],
     buttonText: "",
