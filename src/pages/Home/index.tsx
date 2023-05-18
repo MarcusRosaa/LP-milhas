@@ -223,9 +223,7 @@ const Home: React.FC = () => {
               message={{
                 id: 21,
                 type: "auto",
-                text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${savedValues.total!.toFixed(
-                  1
-                )} milhas.`,
+                text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${savedValues.total!.toFixed()} milhas.`,
               }}
             />,
             <BotMessage
