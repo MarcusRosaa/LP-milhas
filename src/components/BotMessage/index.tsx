@@ -82,7 +82,11 @@ const BotMessage: React.FC<IBotMessageProps> = ({
         return (
           <Container className="message-content--auto">
             {message?.id === 19 && (
-              <a href="www.instagram.com/matheustiburtino" target="_blank">
+              <a
+                href="https://www.instagram.com/matheustiburtino"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <p>
                   <TbRobot />
                   {displayText}

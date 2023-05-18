@@ -75,7 +75,6 @@ export const ChatProvider: React.FC<{
         const leadNumero = state.userResponses[1].answer;
         const leadAcumulaMilhas = state.userResponses[2].answer;
         createDocument(leadNome, leadNumero, leadAcumulaMilhas);
-        console.log("cuzao");
       } catch (error) {
         console.error(error);
       }

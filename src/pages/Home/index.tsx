@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from "react";
+import { stat } from "fs/promises";
 import { useChatContext } from "../../context/ChatContext";
 import BotMessage from "../../components/BotMessage";
 import UserMessage from "../../components/UserMessage";
@@ -30,6 +31,7 @@ const Home: React.FC = () => {
   const [chatMessages, setChatMessages] = useState<React.ReactNode[]>([]);
   const [isBotMessageEnabled, setBotMessageEnabled] = useState(false);
   const [savedValues, setSavedValues] = useState<SavedValues>({});
+  const [divider, setDivider] = useState(1);
 
   const handleUserAnswer = (response: string) => {
     const currentQuestionId = currentQuestion?.id;
@@ -38,16 +40,16 @@ const Home: React.FC = () => {
 
     // Perform calculations based on user responses
     if (currentQuestionId === 6) {
-      const value = parseInt(response, 10) * 5;
+      const value = Number(response) * 5;
       setSavedValues({ ...savedValues, question6: value });
     } else if (currentQuestionId === 7) {
-      const value = parseInt(response, 10) * 36;
+      const value = Number(response) * 36;
       setSavedValues({ ...savedValues, question7: value });
     } else if (currentQuestionId === 8) {
-      const value = parseInt(response, 10) * 60;
+      const value = Number(response) * 60;
       setSavedValues({ ...savedValues, question8: value });
     } else if (currentQuestionId === 9) {
-      const value = parseInt(response, 10) * 8;
+      const value = Number(response) * 8;
       setSavedValues({ ...savedValues, question9: value });
     } else if (currentQuestionId === 10) {
       if (response === "Sim") {
@@ -57,10 +59,11 @@ const Home: React.FC = () => {
       }
       return;
     } else if (currentQuestionId === 11) {
-      const value = parseInt(response, 10) / 2;
-      setSavedValues({ ...savedValues, question11: value });
+      const value = Number(response) / 2;
+      setDivider(value);
     } else if (currentQuestionId === 12) {
       let multiplier = 0;
+      console.log(response);
       if (response === "De 1-3 diárias") {
         multiplier = 5000;
       } else if (response === "De 3-7 diárias") {
@@ -70,7 +73,7 @@ const Home: React.FC = () => {
       } else if (response === "De 14-28 diárias") {
         multiplier = 40000;
       }
-      const value = savedValues.question9! * multiplier;
+      const value = divider * multiplier;
       setSavedValues({ ...savedValues, question12: value });
     } else if (currentQuestionId === 13) {
       if (response === "Sim") {
@@ -80,10 +83,10 @@ const Home: React.FC = () => {
       }
       return;
     } else if (currentQuestionId === 14) {
-      const value = parseInt(response, 10) * 7;
+      const value = Number(response) * 7;
       setSavedValues({ ...savedValues, question14: value });
     } else if (currentQuestionId === 15) {
-      const value = parseInt(response, 10) * 30;
+      const value = Number(response) * 30;
       setSavedValues({ ...savedValues, question15: value });
     } else if (currentQuestionId === 20) {
       const total =
@@ -105,7 +108,9 @@ const Home: React.FC = () => {
           message={{
             id: 1,
             type: "default",
-            text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${total.toFixed()} milhas.`,
+            text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${total.toFixed(
+              1
+            )} milhas.`,
           }}
         />,
         <BotMessage
@@ -120,7 +125,7 @@ const Home: React.FC = () => {
             ).toFixed()}, ou DINHEIRO NO BOLSO = ${(
               (total / 1000) *
               20
-            ).toFixed()}`,
+            ).toFixed(1)}`,
           }}
         />,
         <BotMessage
@@ -214,7 +219,7 @@ const Home: React.FC = () => {
       });
     }
   }, [state.userResponses]);
-
+  console.log(savedValues);
   return (
     <Container className="chat-container">
       <div className="messages-container">
