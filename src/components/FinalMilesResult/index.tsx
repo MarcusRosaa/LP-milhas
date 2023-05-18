@@ -13,10 +13,10 @@ interface FinalMilesResultsProps {
 const FinalMilesResults: React.FC<FinalMilesResultsProps> = ({
   totalMiles,
 }) => {
-  const internationalTotal = Math.ceil(totalMiles! / 80000).toLocaleString(
+  const internationalTotal = Math.floor(totalMiles! / 80000).toLocaleString(
     "pt-BR"
   );
-  const nationalTotal = Math.ceil(totalMiles! / 20000).toLocaleString("pt-BR");
+  const nationalTotal = Math.floor(totalMiles! / 20000).toLocaleString("pt-BR");
 
   const moneyTotal = ((totalMiles! / 1000) * 20).toLocaleString("pt-BR", {
     style: "currency",
