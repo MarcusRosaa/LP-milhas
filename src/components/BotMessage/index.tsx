@@ -83,7 +83,7 @@ const BotMessage: React.FC<IBotMessageProps> = ({
           <Container className="message-content--auto">
             {message?.id === 19 || message?.id === 24 ? (
               <a
-                href="https://www.instagram.com/matheustiburtino"
+                href="https://devzapp.com.br/api-engennier/campanha/api/redirect/62f68647159eaa000112df23"
                 target="_blank"
                 rel="noreferrer"
               >

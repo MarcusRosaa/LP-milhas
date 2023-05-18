@@ -6,6 +6,7 @@ import BotMessage from "../../components/BotMessage";
 import UserMessage from "../../components/UserMessage";
 import Input from "../../components/Input";
 import { Container } from "./styles";
+import FinalMilesResults from "../../components/FinalMilesResult";
 
 interface QuestionResponse {
   questionId: number;
@@ -101,52 +102,6 @@ const Home: React.FC = () => {
 
       setSavedValues({ ...savedValues, total });
 
-      // setChatMessages((prevMessages) => [
-      //   ...prevMessages,
-      //   <BotMessage
-      //     key="message-1"
-      //     message={{
-      //       id: 21,
-      //       type: "auto",
-      //       text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${total.toFixed(
-      //         1
-      //       )} milhas.`,
-      //     }}
-      //   />,
-      //   <BotMessage
-      //     key="message-2"
-      //     message={{
-      //       id: 22,
-      //       type: "auto",
-      //       text: `Isso representa: VIAGEM INTERNACIONAIS = ${(
-      //         total / 80000
-      //       ).toFixed()}, VIAGENS NACIONAIS = ${(
-      //         total / 20000
-      //       ).toFixed()}, ou DINHEIRO NO BOLSO = ${(
-      //         (total / 1000) *
-      //         20
-      //       ).toFixed(1)}`,
-      //     }}
-      //   />,
-      //   <BotMessage
-      //     key="message-3"
-      //     message={{
-      //       id: 23,
-      //       type: "auto",
-      //       text: "Gostou do resultado? Deixa um feedback lá no meu Instagram!",
-      //     }}
-      //   />,
-      //   <BotMessage
-      //     key="message-4"
-      //     message={{
-      //       id: 24,
-      //       type: "auto",
-      //       text: "BOTAO: LINK PARA INSTAGRAM",
-      //     }}
-      //   />,
-      // ]);
-
-      // setCurrentQuestionIndex(state.currentQuestionIndex + 1);
       return;
     }
 
@@ -226,27 +181,13 @@ const Home: React.FC = () => {
                 text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${savedValues.total!.toFixed()} milhas.`,
               }}
             />,
-            <BotMessage
-              key="message-2"
-              message={{
-                id: 22,
-                type: "auto",
-                text: `Isso representa: VIAGEM INTERNACIONAIS = ${(
-                  savedValues.total! / 80000
-                ).toFixed()}, VIAGENS NACIONAIS = ${(
-                  savedValues.total! / 20000
-                ).toFixed()}, ou DINHEIRO NO BOLSO = ${(
-                  (savedValues.total! / 1000) *
-                  20
-                ).toFixed()}`,
-              }}
-            />,
+            <FinalMilesResults totalMiles={savedValues.total} />,
             <BotMessage
               key="message-3"
               message={{
                 id: 23,
                 type: "auto",
-                text: "Gostou do resultado? Deixa um feedback lá no meu Instagram!",
+                text: "Quer aprender mais sobre isso em um curso gratuito sobre milhas? Entre no grupo do WhatsApp abaixo que iremos passar todas as informações:",
               }}
             />,
             <BotMessage
@@ -254,7 +195,7 @@ const Home: React.FC = () => {
               message={{
                 id: 24,
                 type: "auto",
-                text: "@matheustiburtino",
+                text: "Grupo Jornada Do Milheiro",
               }}
             />,
             <BotMessage
