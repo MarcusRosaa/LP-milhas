@@ -256,6 +256,14 @@ const Home: React.FC = () => {
               message={{
                 id: 24,
                 type: "auto",
+                text: "@matheustiburtino",
+              }}
+            />,
+            <BotMessage
+              key="message-5"
+              message={{
+                id: 25,
+                type: "auto",
                 text: "Espero ter ajudado! Se tiver mais alguma dúvida, estou à disposição.",
               }}
             />
