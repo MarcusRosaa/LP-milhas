@@ -178,7 +178,13 @@ const Home: React.FC = () => {
               message={{
                 id: 21,
                 type: "auto",
-                text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${savedValues.total!.toFixed()} milhas.`,
+                text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${savedValues.total!.toLocaleString(
+                  "pt-BR",
+                  {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }
+                )} milhas.`,
               }}
             />,
             <FinalMilesResults totalMiles={savedValues.total} />,
