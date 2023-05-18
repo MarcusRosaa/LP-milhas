@@ -32,7 +32,7 @@ const Container = styled.div`
     font-size: 14px;
 
     display: grid;
-    grid-template-columns: 30px calc(100% - 30px);
+    grid-template-columns: 40px calc(100% - 40px);
     align-items: center;
 
     svg {
