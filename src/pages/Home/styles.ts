@@ -16,6 +16,14 @@ export const Container = styled.main`
     box-shadow: 0px 1px 10px -3px rgba(178, 179, 189, 1);
   }
 
+  .messages-container-wrapper {
+    .message-id-16-18,
+    .message-id-16-19,
+    .message-id-16-20 {
+      display: none;
+    }
+  }
+
   .messages-container {
     padding-bottom: 16px;
     padding-right: 10px;

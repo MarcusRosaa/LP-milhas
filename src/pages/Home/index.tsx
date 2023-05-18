@@ -1,6 +1,5 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from "react";
-import { stat } from "fs/promises";
 import { useChatContext } from "../../context/ChatContext";
 import BotMessage from "../../components/BotMessage";
 import UserMessage from "../../components/UserMessage";
@@ -30,9 +29,7 @@ const Home: React.FC = () => {
   const { state, addResponse, setCurrentQuestionIndex, currentQuestion } =
     useChatContext();
   const [chatMessages, setChatMessages] = useState<React.ReactNode[]>([]);
-  const [isBotMessageEnabled, setBotMessageEnabled] = useState(false);
   const [savedValues, setSavedValues] = useState<SavedValues>({});
-  const [divider, setDivider] = useState(1);
 
   const handleUserAnswer = (response: string) => {
     const currentQuestionId = currentQuestion?.id;
@@ -61,7 +58,7 @@ const Home: React.FC = () => {
       return;
     } else if (currentQuestionId === 11) {
       const value = Number(response) / 2;
-      setDivider(value);
+      setSavedValues({ ...savedValues, question11: value });
     } else if (currentQuestionId === 12) {
       let multiplier = 0;
       console.log(response);
@@ -74,7 +71,7 @@ const Home: React.FC = () => {
       } else if (response === "De 14-28 diárias") {
         multiplier = 40000;
       }
-      const value = divider * multiplier;
+      const value = savedValues.question11! * multiplier;
       setSavedValues({ ...savedValues, question12: value });
     } else if (currentQuestionId === 13) {
       if (response === "Sim") {
@@ -123,7 +120,6 @@ const Home: React.FC = () => {
 
       if (currentQuestion.type === "auto") {
         setCurrentQuestionIndex(state.currentQuestionIndex + 1);
-        setBotMessageEnabled(true);
       }
 
       setChatMessages(newMessages);
@@ -155,6 +151,8 @@ const Home: React.FC = () => {
             <UserMessage
               key={`user-${lastUserResponse.questionId}`}
               message={lastUserResponse.answer}
+              nameClass={lastUserResponse.questionId}
+              nameClass2={state.questions[state.currentQuestionIndex].id}
             />
           );
         }
