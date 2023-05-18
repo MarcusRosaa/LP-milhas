@@ -101,52 +101,52 @@ const Home: React.FC = () => {
 
       setSavedValues({ ...savedValues, total });
 
-      setChatMessages((prevMessages) => [
-        ...prevMessages,
-        <BotMessage
-          key="message-1"
-          message={{
-            id: 1,
-            type: "default",
-            text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${total.toFixed(
-              1
-            )} milhas.`,
-          }}
-        />,
-        <BotMessage
-          key="message-2"
-          message={{
-            id: 2,
-            type: "default",
-            text: `Isso representa: VIAGEM INTERNACIONAIS = ${(
-              total / 80000
-            ).toFixed()}, VIAGENS NACIONAIS = ${(
-              total / 20000
-            ).toFixed()}, ou DINHEIRO NO BOLSO = ${(
-              (total / 1000) *
-              20
-            ).toFixed(1)}`,
-          }}
-        />,
-        <BotMessage
-          key="message-3"
-          message={{
-            id: 3,
-            type: "default",
-            text: "Gostou do resultado? Deixa um feedback lá no meu Instagram!",
-          }}
-        />,
-        <BotMessage
-          key="message-4"
-          message={{
-            id: 4,
-            type: "default",
-            text: "BOTAO: LINK PARA INSTAGRAM",
-          }}
-        />,
-      ]);
+      // setChatMessages((prevMessages) => [
+      //   ...prevMessages,
+      //   <BotMessage
+      //     key="message-1"
+      //     message={{
+      //       id: 21,
+      //       type: "auto",
+      //       text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${total.toFixed(
+      //         1
+      //       )} milhas.`,
+      //     }}
+      //   />,
+      //   <BotMessage
+      //     key="message-2"
+      //     message={{
+      //       id: 22,
+      //       type: "auto",
+      //       text: `Isso representa: VIAGEM INTERNACIONAIS = ${(
+      //         total / 80000
+      //       ).toFixed()}, VIAGENS NACIONAIS = ${(
+      //         total / 20000
+      //       ).toFixed()}, ou DINHEIRO NO BOLSO = ${(
+      //         (total / 1000) *
+      //         20
+      //       ).toFixed(1)}`,
+      //     }}
+      //   />,
+      //   <BotMessage
+      //     key="message-3"
+      //     message={{
+      //       id: 23,
+      //       type: "auto",
+      //       text: "Gostou do resultado? Deixa um feedback lá no meu Instagram!",
+      //     }}
+      //   />,
+      //   <BotMessage
+      //     key="message-4"
+      //     message={{
+      //       id: 24,
+      //       type: "auto",
+      //       text: "BOTAO: LINK PARA INSTAGRAM",
+      //     }}
+      //   />,
+      // ]);
 
-      setCurrentQuestionIndex(state.currentQuestionIndex + 1);
+      // setCurrentQuestionIndex(state.currentQuestionIndex + 1);
       return;
     }
 
@@ -215,10 +215,58 @@ const Home: React.FC = () => {
           />
         );
 
+        // Add the last bot messages here
+        if (lastUserResponse.questionId === 20) {
+          updatedMessages.push(
+            <BotMessage
+              key="message-1"
+              message={{
+                id: 21,
+                type: "auto",
+                text: `Em um ano, de acordo com os seus gastos, você irá acumular em média ${savedValues.total!.toFixed(
+                  1
+                )} milhas.`,
+              }}
+            />,
+            <BotMessage
+              key="message-2"
+              message={{
+                id: 22,
+                type: "auto",
+                text: `Isso representa: VIAGEM INTERNACIONAIS = ${(
+                  savedValues.total! / 80000
+                ).toFixed()}, VIAGENS NACIONAIS = ${(
+                  savedValues.total! / 20000
+                ).toFixed()}, ou DINHEIRO NO BOLSO = ${(
+                  (savedValues.total! / 1000) *
+                  20
+                ).toFixed()}`,
+              }}
+            />,
+            <BotMessage
+              key="message-3"
+              message={{
+                id: 23,
+                type: "auto",
+                text: "Gostou do resultado? Deixa um feedback lá no meu Instagram!",
+              }}
+            />,
+            <BotMessage
+              key="message-4"
+              message={{
+                id: 24,
+                type: "auto",
+                text: "Espero ter ajudado! Se tiver mais alguma dúvida, estou à disposição.",
+              }}
+            />
+          );
+        }
+
         return updatedMessages;
       });
     }
-  }, [state.userResponses]);
+  }, [state.userResponses, state.questions, state.currentQuestionIndex]);
+
   console.log(savedValues);
   return (
     <Container className="chat-container">
