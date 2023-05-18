@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from "react";
 import { TbRobot } from "react-icons/tb";
@@ -77,6 +78,10 @@ const BotMessage: React.FC<IBotMessageProps> = ({
         ? currentMessage.text.replace("{option}", selectedOption)
         : currentMessage.text;
 
+    const boldRegex = /\*([^*]+)\*/g; // Regex to match words wrapped in asterisks
+
+    const textWithBold = displayText.replace(boldRegex, "<strong>$1</strong>");
+
     switch (currentMessage?.type) {
       case "auto":
         return (
@@ -89,13 +94,13 @@ const BotMessage: React.FC<IBotMessageProps> = ({
               >
                 <p>
                   <TbRobot />
-                  {displayText}
+                  <span dangerouslySetInnerHTML={{ __html: textWithBold }} />
                 </p>
               </a>
             ) : (
               <p>
                 <TbRobot />
-                {displayText}
+                <span dangerouslySetInnerHTML={{ __html: textWithBold }} />
               </p>
             )}
           </Container>

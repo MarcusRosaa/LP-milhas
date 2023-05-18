@@ -1,7 +1,7 @@
 const questionsData = [
   {
     id: 1,
-    text: "Olá, eu sou a sua calculadora de milhas! 👋",
+    text: "Olá, eu sou a sua *calculadora de milhas!* 👋",
     type: "auto",
     options: [],
     buttonText: "",
