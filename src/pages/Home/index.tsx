@@ -61,7 +61,6 @@ const Home: React.FC = () => {
       setSavedValues({ ...savedValues, question11: value });
     } else if (currentQuestionId === 12) {
       let multiplier = 0;
-      console.log(response);
       if (response === "De 1-3 diárias") {
         multiplier = 5000;
       } else if (response === "De 3-7 diárias") {
@@ -219,7 +218,6 @@ const Home: React.FC = () => {
     }
   }, [state.userResponses, state.questions, state.currentQuestionIndex]);
 
-  console.log(savedValues);
   return (
     <Container className="chat-container">
       <div className="messages-container">

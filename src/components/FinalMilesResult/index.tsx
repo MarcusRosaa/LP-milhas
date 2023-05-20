@@ -25,7 +25,6 @@ const FinalMilesResults: React.FC<FinalMilesResultsProps> = ({
     maximumFractionDigits: 2,
   });
 
-  console.log(totalMiles);
   return (
     <Container className="bot-message">
       <div className="message-content--auto">
