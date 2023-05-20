@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from "react";
@@ -86,7 +87,18 @@ const BotMessage: React.FC<IBotMessageProps> = ({
       case "auto":
         return (
           <Container className="message-content--auto">
-            {message?.id === 19 || message?.id === 24 ? (
+            {message?.id === 19 ? (
+              <a
+                href="https://www.instagram.com/matheustiburtino/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <p>
+                  <TbRobot />
+                  <span dangerouslySetInnerHTML={{ __html: textWithBold }} />
+                </p>
+              </a>
+            ) : message?.id === 24 ? (
               <a
                 href="https://devzapp.com.br/api-engennier/campanha/api/redirect/62f68647159eaa000112df23"
                 target="_blank"

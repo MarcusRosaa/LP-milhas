@@ -153,6 +153,7 @@ const Home: React.FC = () => {
               message={lastUserResponse.answer}
               nameClass={lastUserResponse.questionId}
               nameClass2={state.questions[state.currentQuestionIndex].id}
+              questions={state.questions}
             />
           );
         }
