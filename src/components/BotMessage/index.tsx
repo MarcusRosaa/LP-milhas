@@ -100,7 +100,7 @@ const BotMessage: React.FC<IBotMessageProps> = ({
               </a>
             ) : message?.id === 24 ? (
               <a
-                href="https://devzapp.com.br/api-engennier/campanha/api/redirect/62f68647159eaa000112df23"
+                href="https://app.gruposinteligentes.com/r/calculadoramilhas"
                 target="_blank"
                 rel="noreferrer"
               >
