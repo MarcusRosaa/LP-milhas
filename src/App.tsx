@@ -1,6 +1,7 @@
 import React from "react";
 import { RouterProvider } from "react-router-dom";
 import { ChatProvider, useChatContext } from "./context/ChatContext";
+import { AuthProvider } from "./context/AuthContext";
 
 import Header from "./components/Header";
 import router from "./routes";
@@ -16,11 +17,13 @@ function App() {
   }, []);
 
   return (
-    <ChatProvider initialQuestions={questionsData}>
-      <GlobalStyles />
-      <Header />
-      <RouterProvider router={router} />
-    </ChatProvider>
+    <AuthProvider>
+      <ChatProvider initialQuestions={questionsData}>
+        <GlobalStyles />
+        <Header />
+        <RouterProvider router={router} />
+      </ChatProvider>
+    </AuthProvider>
   );
 }
 

@@ -32,7 +32,10 @@ const GlobalStyles = createGlobalStyle`
   }
 
 .bot-message {
-  animation: slideInFromLeft .6s ease-in-out;
+  transform: translateX(-100%);
+  opacity: 0;
+  animation: slideInFromLeft .6s ease-in-out forwards;
+  animation-delay: 1s;
 }
 
 .user-message {
@@ -43,20 +46,6 @@ const GlobalStyles = createGlobalStyle`
   0% {
     opacity: 0;
     transform: translateX(-100%);
-  }
-  25% {
-    opacity: 0;
-    transform: translateX(-75%);
-  }
-
-  50% {
-    opacity: 0;
-    transform: translateX(-50%);
-  }
-
-  75% {
-    opacity: 0;
-    transform: translateX(-25%);
   }
 
   100% {
