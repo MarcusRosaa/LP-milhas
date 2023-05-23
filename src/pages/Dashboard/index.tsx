@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
 // Dashboard.js
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "firebase/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
